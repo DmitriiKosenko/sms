@@ -21,7 +21,7 @@ public class SendSmsController {
 
     private final static String CANT_SEND_MESSAGE = "Невозможно отправить сообщение. ";
     private final static String INTERNAL_ERROR = "Произошла внутренняя ошибка. ";
-    private final static String SUCCESS = "SUCCESS";
+    private final static String SUCCESS = "Сообщение успешно отправлено! ";
 
 
     @RequestMapping("/send_sms")
