@@ -3,10 +3,8 @@ package com.springapp.mvc;
 import com.springapp.mvc.model.entities.SmsHistory;
 import junit.framework.TestCase;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
 import java.util.Date;
 
 /**
@@ -26,17 +24,11 @@ public abstract class SmsHistoryTestCase extends TestCase {
             ");";
     private static final String dropTempTableSql = "DROP TABLE IF EXISTS sms_history_temp";
 
-    protected SimpleDriverDataSource dataSource;
     protected JdbcTemplate template;
 
     @Override
     public void setUp() throws Exception {
-        dataSource = DataSource.getInstance();
-
-        Connection connection = dataSource.getConnection();
-        assert connection != null;
-
-        template = new JdbcTemplate(dataSource);
+        template = DataSource.getJDBCTemplate();
 
         template.execute(dropTempTableSql);
         template.execute(createTempTableSql);

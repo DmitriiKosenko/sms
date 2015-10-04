@@ -1,8 +1,10 @@
 package com.springapp.mvc;
 
 import com.mysql.jdbc.Driver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -24,5 +26,14 @@ public class DataSource {
         }
 
         return dataSource;
+    }
+
+    public static synchronized JdbcTemplate getJDBCTemplate() throws SQLException{
+        SimpleDriverDataSource ds = getInstance();
+
+        Connection connection = ds.getConnection();
+        assert connection != null;
+
+        return new JdbcTemplate(dataSource);
     }
 }
