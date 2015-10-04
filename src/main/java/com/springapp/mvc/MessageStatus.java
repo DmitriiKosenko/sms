@@ -14,6 +14,14 @@ public enum MessageStatus {
         this.value = value;
     }
 
+    public static MessageStatus getByBoolean(boolean flag) {
+        if (flag) {
+            return SUCCESS;
+        }
+
+        return ERROR;
+    }
+
     public int getValue() {
         return value;
     }

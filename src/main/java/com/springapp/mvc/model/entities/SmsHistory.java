@@ -1,6 +1,5 @@
 package com.springapp.mvc.model.entities;
 
-import com.springapp.mvc.MessageStatus;
 import com.springapp.mvc.exceptions.ValidationException;
 import com.springapp.mvc.exceptions.ValidationMessages;
 import com.sun.istack.internal.NotNull;
@@ -35,10 +34,6 @@ public class SmsHistory implements Serializable {
         this.dateSend = dateSend;
         this.status = status;
         this.message = message;
-    }
-
-    public SmsHistory(long telNumber, Date dateSend, String message) {
-        this(telNumber, dateSend, MessageStatus.SUCCESS.getValue(), message);
     }
 
     public void insert(@NotNull final JdbcTemplate template) throws DataAccessException {

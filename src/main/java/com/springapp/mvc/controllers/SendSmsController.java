@@ -1,6 +1,7 @@
 package com.springapp.mvc.controllers;
 
 import com.springapp.mvc.DataSource;
+import com.springapp.mvc.MessageStatus;
 import com.springapp.mvc.SmsSender;
 import com.springapp.mvc.exceptions.ValidationException;
 import com.springapp.mvc.model.entities.SmsHistory;
@@ -31,16 +32,19 @@ public class SendSmsController {
     ) {
 
         Object[] errorObject = new Object[] {CANT_SEND_MESSAGE + INTERNAL_ERROR};
-        boolean isSent = new SmsSender().sendSms(Long.toString(telNumber), message);
-        if (!isSent) {
-            return errorObject;
-        }
 
         try {
-            SmsHistory smsHistory = new SmsHistory(telNumber, new Date(), message);
+            boolean isSent = new SmsSender().sendSms(Long.toString(telNumber), message);
+
+            SmsHistory smsHistory =
+                    new SmsHistory(telNumber, new Date(), MessageStatus.getByBoolean(isSent).getValue(), message);
 
             smsHistory.validate();
             smsHistory.insert(DataSource.getJDBCTemplate());
+
+            if (!isSent) {
+                return errorObject;
+            }
 
         } catch (ValidationException e) {
             return new Object[] {CANT_SEND_MESSAGE + e.getMessage()};
