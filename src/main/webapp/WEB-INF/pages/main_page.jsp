@@ -4,7 +4,7 @@
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
 </head>
 <body>
 	<div class="col-lg-6" style="float: none; margin: 0 auto">
@@ -16,7 +16,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="Номер телефона">
 			<span class="input-group-btn">
-				<button class="btn btn-default" type="button">Отправить</button>
+				<button id="send" class="btn btn-default" type="button">Отправить</button>
 			</span>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 		<%--<div class="alert alert-danger" role="alert">...</div>--%>
 
 		<div class="row">
-			<table id="example" class="table display" cellspacing="0">
+			<table id="history_page" class="table display" cellspacing="0">
 				<thead>
 				<tr>
 					<th>Телефон</th>
@@ -46,8 +46,19 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<%--<script src="resources/js/main_page.js"></script>--%>
+	<script type="text/javascript" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 
-	<script type="text/javascript" src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
+	<script src="resources/js/table.js"></script>
+	<script src="resources/js/message.js"></script>
+	<script src="resources/js/main.js"></script>
+
+	<script type="text/javascript">
+
+		table.init();
+
+		$("#send").bind('click', (table.getContent));
+
+		table.getContent();
+	</script>
 </body>
 </html>
