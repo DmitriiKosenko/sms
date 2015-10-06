@@ -1,7 +1,9 @@
 package com.springapp.mvc.controllers;
 
+import com.google.gson.GsonBuilder;
 import com.springapp.mvc.DataSource;
-import com.springapp.mvc.model.entities.SmsHistory;
+import com.springapp.mvc.Utils;
+import com.springapp.mvc.model.entities.SmsHistoryDTO;
 import com.springapp.mvc.model.entities.SmsHistoryList;
 import com.sun.istack.internal.NotNull;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,23 +26,30 @@ public class GetHistoryController {
      * @param pageSize размер страницы истории
      * @return
      */
-    @RequestMapping("/get_history")
-    public @NotNull List<SmsHistory> getHistory(
+    @RequestMapping(value = "/get_history", produces = "text/plain;charset=UTF-8")
+    public @NotNull String getHistory(
             @RequestParam(value="page") int pageNumber,
             @RequestParam(value="size") int pageSize
     ) {
 
+        List<SmsHistoryDTO> result = getHistoryImpl(pageNumber, pageSize);
+
+        return new GsonBuilder().setPrettyPrinting().create().toJson(result);
+    }
+
+    private List<SmsHistoryDTO> getHistoryImpl(int pageNumber, int pageSize) {
         if (pageNumber < 0 || pageSize <= 0) {
-            return new ArrayList<SmsHistory>();
+            return new ArrayList<SmsHistoryDTO>();
         }
 
         try {
-            return new SmsHistoryList().get(DataSource.getJDBCTemplate(), (pageNumber - 1) * pageSize, pageSize);
+            return Utils.convert(
+                    new SmsHistoryList().get(DataSource.getJDBCTemplate(), (pageNumber - 1) * pageSize, pageSize)
+            );
         } catch (SQLException e) {
             //
         }
 
-        return new ArrayList<SmsHistory>();
-
+        return new ArrayList<SmsHistoryDTO>();
     }
 }

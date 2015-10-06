@@ -36,6 +36,11 @@ public class SmsHistory implements Serializable {
         this.message = message;
     }
 
+    public SmsHistory(long id, long telNumber, Date dateSend, int status, String message) {
+        this(telNumber, dateSend, status, message);
+        this.id = id;
+    }
+
     public void insert(@NotNull final JdbcTemplate template) throws DataAccessException {
         assert telNumber != 0;
         assert dateSend != null;

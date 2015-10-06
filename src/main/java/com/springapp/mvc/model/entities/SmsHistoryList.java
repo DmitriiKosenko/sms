@@ -15,7 +15,7 @@ public class SmsHistoryList {
 
     // usefull if table rows count over google
     private String selectQuery =
-            "SELECT a.TELNUMBER, a.DATESEND, a.STATUS, a.MESSAGE FROM " +
+            "SELECT a.ID, a.TELNUMBER, a.DATESEND, a.STATUS, a.MESSAGE FROM " +
                     "(SELECT * FROM sms_history ORDER BY DATESEND DESC LIMIT ?, ?) a " +
                     "INNER JOIN sms_history b ON a.id = b.id";
 
@@ -30,6 +30,7 @@ public class SmsHistoryList {
             @Override
             public SmsHistory mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new SmsHistory(
+                        rs.getLong("ID"),
                         rs.getLong("TELNUMBER"),
                         rs.getDate("DATESEND"),
                         rs.getInt("STATUS"),

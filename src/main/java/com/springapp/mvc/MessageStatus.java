@@ -5,13 +5,15 @@ package com.springapp.mvc;
  */
 public enum MessageStatus {
 
-    ERROR(0),
-    SUCCESS(1);
+    ERROR(0, "ошибка"),
+    SUCCESS(1, "отправлено");
 
     private final int value;
+    private final String message;
 
-    MessageStatus(int value) {
+    MessageStatus(int value, String message) {
         this.value = value;
+        this.message = message;
     }
 
     public static MessageStatus getByBoolean(boolean flag) {
@@ -22,7 +24,21 @@ public enum MessageStatus {
         return ERROR;
     }
 
+    public static MessageStatus getByInteger(int value) {
+        assert value == 0 || value == 1;
+
+        if (value == 1) {
+            return SUCCESS;
+        }
+
+        return ERROR;
+    }
+
     public int getValue() {
         return value;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

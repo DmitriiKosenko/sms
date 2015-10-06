@@ -1,5 +1,6 @@
 package com.springapp.mvc.controllers;
 
+import com.google.gson.GsonBuilder;
 import com.springapp.mvc.DataSource;
 import com.springapp.mvc.MessageStatus;
 import com.springapp.mvc.SmsSender;
@@ -25,13 +26,20 @@ public class SendSmsController {
     private final static String SUCCESS = "Сообщение успешно отправлено! ";
 
 
-    @RequestMapping("/send_sms")
-    public @NotNull Object[] sendSms(
+    @RequestMapping(value = "/send_sms", produces = "text/plain;charset=UTF-8")
+    public @NotNull String sendSms(
             @RequestParam(value = "tel_number") long telNumber,
             @RequestParam(value = "message") String message
     ) {
 
-        Object[] errorObject = new Object[] {CANT_SEND_MESSAGE + INTERNAL_ERROR};
+        String[] result = sendMessageImpl(telNumber, message);
+
+        return new GsonBuilder().setPrettyPrinting().create().toJson(result);
+    }
+
+    private String[] sendMessageImpl(long telNumber, String message) {
+        String[] error = new String[]
+                {Integer.toString(MessageStatus.ERROR.getValue()), CANT_SEND_MESSAGE + INTERNAL_ERROR};
 
         try {
             boolean isSent = new SmsSender().sendSms(Long.toString(telNumber), message);
@@ -43,17 +51,18 @@ public class SendSmsController {
             smsHistory.insert(DataSource.getJDBCTemplate());
 
             if (!isSent) {
-                return errorObject;
+                return error;
             }
 
         } catch (ValidationException e) {
-            return new Object[] {CANT_SEND_MESSAGE + e.getMessage()};
+            error[1] = CANT_SEND_MESSAGE + e.getMessage();
+            return error;
         } catch (SQLException e) {
-            return errorObject;
+            return error;
         } catch (DataAccessException e) {
-            return errorObject;
+            return error;
         }
 
-        return new Object[] {SUCCESS};
+        return new String[] {Integer.toString(MessageStatus.SUCCESS.getValue()), SUCCESS};
     }
 }
