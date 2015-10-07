@@ -47,6 +47,6 @@ table.getContent = function(event, pageNumber, pageSize) {
             page: pageNumber,
             size: pageSize
         },
-        success: table.initData
+        success: page.getHistoryCallback
     });
 };

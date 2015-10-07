@@ -3,6 +3,7 @@ package com.springapp.mvc.controllers;
 import com.google.gson.GsonBuilder;
 import com.springapp.mvc.DataSource;
 import com.springapp.mvc.Utils;
+import com.springapp.mvc.model.entities.SmsHistoryQuantity;
 import com.springapp.mvc.model.entities.SmsHistoryDTO;
 import com.springapp.mvc.model.entities.SmsHistoryList;
 import com.sun.istack.internal.NotNull;
@@ -32,7 +33,9 @@ public class GetHistoryController {
             @RequestParam(value="size") int pageSize
     ) {
 
-        List<SmsHistoryDTO> result = getHistoryImpl(pageNumber, pageSize);
+        List<SmsHistoryDTO> history = getHistoryImpl(pageNumber, pageSize);
+        Long quantity = getHistoryRowsQuantity();
+        Object[] result = new Object[] {quantity, history};
 
         return new GsonBuilder().setPrettyPrinting().create().toJson(result);
     }
@@ -51,5 +54,15 @@ public class GetHistoryController {
         }
 
         return new ArrayList<SmsHistoryDTO>();
+    }
+
+    private Long getHistoryRowsQuantity() {
+        try {
+            return new SmsHistoryQuantity().get(DataSource.getJDBCTemplate());
+        } catch (SQLException e) {
+            //
+        }
+
+        return 0l;
     }
 }

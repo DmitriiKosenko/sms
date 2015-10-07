@@ -19,3 +19,7 @@ pagination.init = function() {
 pagination.clickEvent = function(event, page) {
     pagination.tableElem.getContent(event, page);
 };
+
+pagination.setTotalCount = function(total) {
+    console.log("total: " + total);
+};
