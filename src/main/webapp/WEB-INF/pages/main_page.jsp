@@ -22,12 +22,9 @@
 		</div>
 		<br />
 		<div class="row">
-			<div class="alert alert-info" role="alert">Статус</div>
+			<div id="info-block" class="alert alert-info" role="alert">Статус</div>
 		</div>
 		<br />
-		<%--<div class="alert alert-success" role="alert">...</div>--%>
-		<%--<div class="alert alert-warning" role="alert">...</div>--%>
-		<%--<div class="alert alert-danger" role="alert">...</div>--%>
 
 		<div class="row">
 			<table id="history_page" class="table display" cellspacing="0">
@@ -50,6 +47,7 @@
 
 	<script src="resources/js/table.js"></script>
 	<script src="resources/js/message.js"></script>
+	<script src="resources/js/info.js"></script>
 	<script src="resources/js/main.js"></script>
 
 	<script type="text/javascript">

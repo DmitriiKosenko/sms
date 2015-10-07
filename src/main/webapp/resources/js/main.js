@@ -1,33 +1,43 @@
 var page = {};
 
+page.errorState = function (message) {
+    messageSendForm.states.ERROR();
+    infoBlock.setState(infoBlock.states.ERROR, message);
+};
+
+page.successState = function(message) {
+    messageSendForm.states.DEFAULT();
+    infoBlock.setState(infoBlock.states.SUCCESS);
+};
+
+page.waitState = function(message) {
+    messageSendForm.states.WAIT();
+    infoBlock.setState(infoBlock.states.WAIT);
+};
+
 page.sendMessageCallBack = function(data) {
 
     var result = data[0] * 1;
 
     if (result) {
-        //info.setState();
-        messageSendForm.states.DEFAULT();
+        page.successState();
 
         return;
     }
 
-    //info.setState();
-    messageSendForm.states.ERROR();
-
+    page.errorState(data[1] + "");
 };
 
 page.sendSms = function() {
-    if (messageSendForm.validate()) {
+    var validateResult = messageSendForm.validate();
 
-        messageSendForm.states.WAIT();
+    if (validateResult.status) {
 
-        //info.setState();
+        page.waitState();
 
         messageSendForm.send();
         return;
     }
 
-
-    messageSendForm.states.ERROR();
-    //info.setState();
+    page.errorState(validateResult.message);
 };

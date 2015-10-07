@@ -25,10 +25,26 @@ messageSendForm.states = {
     WAIT: messageSendForm.waitState
 };
 
+messageSendForm.validationMessages = {
+    INCORRECT_PHONE: "Номер телефона введен не корректно"
+};
+
 
 messageSendForm.validate = function() {
     // Now if you want to send empty message, so... good luck
-    return /^79\d{9}$/.test(this.phone.val());
+    var testPhone = /^79\d{9}$/.test(this.phone.val());
+
+    if (testPhone) {
+        return {
+            status: true,
+            message: ""
+        };
+    }
+
+    return {
+        status: false,
+        message: messageSendForm.validationMessages.INCORRECT_PHONE
+    };
 };
 
 messageSendForm.send = function() {
