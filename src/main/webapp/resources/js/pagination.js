@@ -1,25 +1,31 @@
 var pagination = {
-    elem: $("#pagination"),
     tableElem: table,
 
     visiblePagesCount: 7,
-    totalPagesCount: 0
+    currentPage: 1
 };
 
+pagination.init = function(total) {
 
-pagination.init = function() {
+    total = typeof total !== 'undefined' ? total : 1;
 
-    pagination.elem.twbsPagination({
-        totalPages: pagination.totalPagesCount,
+    $("#pagination").twbsPagination({
+        totalPages: total,
+        startPage: pagination.currentPage,
         visiblePages: pagination.visiblePagesCount,
         onPageClick: pagination.clickEvent
     });
 };
 
 pagination.clickEvent = function(event, page) {
+    pagination.currentPage = page;
     pagination.tableElem.getContent(event, page);
 };
 
 pagination.setTotalCount = function(total) {
-    console.log("total: " + total);
+
+    $("#pagination-holder").html("");
+    $("#pagination-holder").html("<ul id=\"pagination\" class=\"pagination\"></ul>");
+
+    pagination.init(total);
 };

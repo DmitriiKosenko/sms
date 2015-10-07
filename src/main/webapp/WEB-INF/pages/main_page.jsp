@@ -39,7 +39,7 @@
 			</table>
 		</div>
 
-		<div class="row">
+		<div id="pagination-holder" class="row">
 			<ul id="pagination" class="pagination"></ul>
 		</div>
 	</div>

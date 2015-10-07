@@ -34,7 +34,7 @@ public class GetHistoryController {
     ) {
 
         List<SmsHistoryDTO> history = getHistoryImpl(pageNumber, pageSize);
-        Long quantity = getHistoryRowsQuantity();
+        Long quantity = getHistoryRowsQuantity() / pageSize + 1;
         Object[] result = new Object[] {quantity, history};
 
         return new GsonBuilder().setPrettyPrinting().create().toJson(result);
