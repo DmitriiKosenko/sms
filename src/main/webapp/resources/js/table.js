@@ -7,7 +7,7 @@ var table = {
 
 table.init = function() {
 
-    this.elem.dataTable( {
+    table.elem.dataTable( {
         "ordering" : false,
         "paging": false,
         "info": false,

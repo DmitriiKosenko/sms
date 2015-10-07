@@ -38,21 +38,28 @@
 				</thead>
 			</table>
 		</div>
+
+		<div class="row">
+			<ul id="pagination" class="pagination"></ul>
+		</div>
 	</div>
 
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.twbsPagination.min.js"></script>
 
 	<script src="resources/js/table.js"></script>
 	<script src="resources/js/message.js"></script>
 	<script src="resources/js/info.js"></script>
+	<script src="resources/js/pagination.js"></script>
 	<script src="resources/js/main.js"></script>
 
 	<script type="text/javascript">
 
 		table.init();
+		pagination.init();
 
 		$("#send").bind('click', (page.sendSms));
 		// in this case we haven't  guarantee that we get the current list of messages
