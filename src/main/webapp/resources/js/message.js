@@ -26,24 +26,37 @@ messageSendForm.states = {
 };
 
 messageSendForm.validationMessages = {
-    INCORRECT_PHONE: "Номер телефона введен не корректно"
+    INCORRECT_PHONE: "Номер телефона введен не корректно.",
+    EMPTY_MESSAGE: "Введите текст сообщения."
+};
+
+messageSendForm.validatePhone = function() {
+    return /^79\d{9}$/.test(messageSendForm.phone.val());
+};
+
+messageSendForm.validateMessage = function() {
+    return !!messageSendForm.text.val()
 };
 
 
 messageSendForm.validate = function() {
-    // Now if you want to send empty message, so... good luck
-    var testPhone = /^79\d{9}$/.test(this.phone.val());
-
-    if (testPhone) {
+    if (!messageSendForm.validatePhone()) {
         return {
-            status: true,
-            message: ""
+            status: false,
+            message: messageSendForm.validationMessages.INCORRECT_PHONE
+        };
+    }
+
+    if (!messageSendForm.validateMessage()) {
+        return {
+            status: false,
+            message: messageSendForm.validationMessages.EMPTY_MESSAGE
         };
     }
 
     return {
-        status: false,
-        message: messageSendForm.validationMessages.INCORRECT_PHONE
+        status: true,
+        message: ""
     };
 };
 

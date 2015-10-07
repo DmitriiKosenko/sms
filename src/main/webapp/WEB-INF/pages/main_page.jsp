@@ -1,6 +1,6 @@
 <html>
 <head>
-	<%@ page language="java" pageEncoding="UTF-8"%>
+	<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 
