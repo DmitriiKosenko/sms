@@ -10,11 +10,11 @@
 	<div class="col-lg-6" style="float: none; margin: 0 auto">
 		<br />
 		<div class="row">
-			<textarea class="form-control" style="height: 100px" placeholder="Текст сообщения"></textarea>
+			<textarea id="text" class="form-control" style="height: 100px" placeholder="Текст сообщения"></textarea>
 		</div>
 		<div class="row">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Номер телефона">
+				<input id="phone" type="text" class="form-control" placeholder="Номер телефона">
 			<span class="input-group-btn">
 				<button id="send" class="btn btn-default" type="button">Отправить</button>
 			</span>
@@ -57,6 +57,7 @@
 		table.init();
 
 		$("#send").bind('click', (table.getContent));
+		$("#send").bind('click', (page.sendSms));
 
 		table.getContent();
 	</script>
