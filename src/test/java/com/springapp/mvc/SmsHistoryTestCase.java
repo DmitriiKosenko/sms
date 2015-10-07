@@ -18,7 +18,7 @@ public abstract class SmsHistoryTestCase extends TestCase {
     private static final String createTempTableSql = "CREATE TABLE sms_history_temp (\n" +
             "ID BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,\n" +
             "TELNUMBER BIGINT NOT NULL,\n" +
-            "DATESEND DATE NOT NULL,\n" +
+            "DATESEND DATETIME NOT NULL,\n" +
             "STATUS TINYINT NOT NULL,\n" +
             "MESSAGE VARCHAR(1000)\n" +
             ");";
