@@ -21,22 +21,6 @@ table.init = function() {
     } );
 };
 
-table.getContent = function(event, pageNumber, pageSize) {
-
-    var pageNumber = typeof pageNumber !== 'undefined' ? pageNumber : this.defaultPageNumber;
-    var pageSize = typeof pageSize !== 'undefined' ? pageSize : this.defaultPageSize;
-
-    $.ajax({
-        url: this.serviceUrl,
-        dataType: 'json',
-        data: {
-            page: pageNumber,
-            size: pageSize
-        },
-        success: this.initData
-    });
-};
-
 table.initData = function(data) {
 
     if (data == undefined) {
@@ -49,4 +33,20 @@ table.initData = function(data) {
     if (data.length != 0) {
         table.elem.dataTable().fnAddData(data);
     }
+};
+
+table.getContent = function(event, pageNumber, pageSize) {
+
+    var pageNumber = typeof pageNumber !== 'undefined' ? pageNumber : table.defaultPageNumber;
+    var pageSize = typeof pageSize !== 'undefined' ? pageSize : table.defaultPageSize;
+
+    $.ajax({
+        url: table.serviceUrl,
+        dataType: 'json',
+        data: {
+            page: pageNumber,
+            size: pageSize
+        },
+        success: table.initData
+    });
 };

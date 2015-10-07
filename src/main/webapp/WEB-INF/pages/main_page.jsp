@@ -54,8 +54,9 @@
 
 		table.init();
 
-		$("#send").bind('click', (table.getContent));
 		$("#send").bind('click', (page.sendSms));
+		// in this case we haven't  guarantee that we get the current list of messages
+		$("#send").bind('click', (table.getContent));
 
 		table.getContent();
 	</script>
