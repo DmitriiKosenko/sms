@@ -26,6 +26,9 @@
 		</div>
 		<br />
 
+		<div id="pagination-holder" class="row">
+			<ul id="pagination" class="pagination"></ul>
+		</div>
 		<div class="row">
 			<table id="history_page" class="table display" cellspacing="0">
 				<thead>
@@ -39,9 +42,6 @@
 			</table>
 		</div>
 
-		<div id="pagination-holder" class="row">
-			<ul id="pagination" class="pagination"></ul>
-		</div>
 	</div>
 
 

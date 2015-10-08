@@ -41,9 +41,3 @@ page.sendSms = function() {
 
     page.errorState(validateResult.message);
 };
-
-page.getHistoryCallback = function(data) {
-
-    pagination.setTotalCount(data[0] * 1);
-    table.initData(data[1]);
-};

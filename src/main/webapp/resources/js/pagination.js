@@ -1,5 +1,4 @@
 var pagination = {
-    tableElem: table,
 
     visiblePagesCount: 7,
     currentPage: 1
@@ -7,25 +6,22 @@ var pagination = {
 
 pagination.init = function(total) {
 
+    $("#pagination-holder").html("");
+    $("#pagination-holder").html("<ul id=\"pagination\" class=\"pagination\"></ul>");
+
     total = typeof total !== 'undefined' ? total : 1;
 
     $("#pagination").twbsPagination({
         totalPages: total,
         startPage: pagination.currentPage,
         visiblePages: pagination.visiblePagesCount,
-        onPageClick: pagination.clickEvent
+        onPageClick: pagination.getContent
     });
 };
 
-pagination.clickEvent = function(event, page) {
+pagination.getContent = function(event, page) {
+
     pagination.currentPage = page;
-    pagination.tableElem.getContent(event, page);
-};
 
-pagination.setTotalCount = function(total) {
-
-    $("#pagination-holder").html("");
-    $("#pagination-holder").html("<ul id=\"pagination\" class=\"pagination\"></ul>");
-
-    pagination.init(total);
+    table.getContent(event, page);
 };

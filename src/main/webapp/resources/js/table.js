@@ -35,6 +35,11 @@ table.initData = function(data) {
     }
 };
 
+table.getContentCallback = function(data) {
+    pagination.init(data[0] * 1);
+    table.initData(data[1]);
+};
+
 table.getContent = function(event, pageNumber, pageSize) {
 
     var pageNumber = typeof pageNumber !== 'undefined' ? pageNumber : table.defaultPageNumber;
@@ -47,6 +52,6 @@ table.getContent = function(event, pageNumber, pageSize) {
             page: pageNumber,
             size: pageSize
         },
-        success: page.getHistoryCallback
+        success: table.getContentCallback
     });
 };
